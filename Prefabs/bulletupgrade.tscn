@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://ct4qax5hfogkl"]
+
+[ext_resource type="Script" uid="uid://dsjniw510ybim" path="res://Scripts/bulletupgrade.gd" id="1_kgsu8"]
+[ext_resource type="Texture2D" uid="uid://1oslwjmmndo5" path="res://skins/bulletupgrade.svg" id="2_r886h"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_w2lsc"]
+size = Vector2(64, 64)
+
+[node name="Bulletupgrade" type="Area2D"]
+process_mode = 1
+script = ExtResource("1_kgsu8")
+metadata/_edit_group_ = true
+
+[node name="Upgradebullet" type="Sprite2D" parent="."]
+position = Vector2(-7.15256e-07, 3.33786e-06)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_r886h")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_w2lsc")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]

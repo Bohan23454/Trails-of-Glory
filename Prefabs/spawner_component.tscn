@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://imkrndcepjna"]
+
+[ext_resource type="Script" uid="uid://3aeb38hf8c80" path="res://Scripts/SpawnerComponent.gd" id="1_um132"]
+
+[node name="SpawnerComponent" type="Node2D"]
+script = ExtResource("1_um132")

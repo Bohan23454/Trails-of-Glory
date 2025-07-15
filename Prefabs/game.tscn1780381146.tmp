@@ -1,0 +1,124 @@
+[gd_scene load_steps=5 format=3 uid="uid://bqu6nx6bhrjjn"]
+
+[ext_resource type="Script" uid="uid://b8mx762ql6ijg" path="res://Scripts/game.gd" id="1_vc7v3"]
+[ext_resource type="PackedScene" uid="uid://dt61mx5v8mxvg" path="res://Prefabs/player.tscn" id="2_6bh61"]
+
+[sub_resource type="FontFile" id="FontFile_feb5d"]
+cache/0/16/0/ascent = 0.0
+cache/0/16/0/descent = 0.0
+cache/0/16/0/underline_position = 0.0
+cache/0/16/0/underline_thickness = 0.0
+cache/0/16/0/scale = 1.0
+cache/0/20/0/ascent = 0.0
+cache/0/20/0/descent = 0.0
+cache/0/20/0/underline_position = 0.0
+cache/0/20/0/underline_thickness = 0.0
+cache/0/20/0/scale = 1.0
+
+[sub_resource type="Theme" id="Theme_fc0e3"]
+default_font = SubResource("FontFile_feb5d")
+default_font_size = 20
+
+[node name="Game" type="Node2D"]
+process_mode = 3
+script = ExtResource("1_vc7v3")
+
+[node name="Player" parent="." instance=ExtResource("2_6bh61")]
+position = Vector2(96, 320)
+
+[node name="EnemyTimer" type="Timer" parent="."]
+autostart = true
+
+[node name="EnemyTimer2" type="Timer" parent="."]
+wait_time = 3.0
+autostart = true
+
+[node name="EnemyTimer3" type="Timer" parent="."]
+wait_time = 6.0
+autostart = true
+
+[node name="Game_ui" type="Control" parent="."]
+custom_minimum_size = Vector2(1152, 75)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 128.0
+offset_bottom = 64.0
+theme = SubResource("Theme_fc0e3")
+
+[node name="ScoreLabel" type="Label" parent="Game_ui"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -48.0
+offset_top = 8.0
+offset_right = 49.0
+offset_bottom = 36.0
+grow_horizontal = 2
+text = "Score: 0000"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="RestartTimer" type="Timer" parent="."]
+
+[node name="EnemyTimer4" type="Timer" parent="."]
+autostart = true
+
+[node name="PauseMenu" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="ColorRect" type="ColorRect" parent="PauseMenu"]
+light_mask = 2
+visibility_layer = 2
+z_index = 1
+layout_mode = 0
+offset_right = 1152.0
+offset_bottom = 648.0
+color = Color(0.494118, 0.494118, 0.494118, 0.309804)
+
+[node name="ColorRect" type="ColorRect" parent="PauseMenu/ColorRect"]
+layout_mode = 0
+offset_left = 528.0
+offset_top = 144.0
+offset_right = 560.0
+offset_bottom = 256.0
+
+[node name="ColorRect2" type="ColorRect" parent="PauseMenu/ColorRect"]
+layout_mode = 0
+offset_left = 592.0
+offset_top = 144.0
+offset_right = 624.0
+offset_bottom = 256.0
+
+[node name="PanelContainer" type="PanelContainer" parent="PauseMenu"]
+layout_mode = 0
+offset_left = 256.0
+offset_top = 448.0
+offset_right = 512.0
+offset_bottom = 528.0
+
+[node name="UnpauseButton" type="Button" parent="PauseMenu/PanelContainer"]
+layout_mode = 2
+text = "Unpause"
+
+[node name="PanelContainer2" type="PanelContainer" parent="PauseMenu"]
+layout_mode = 2
+offset_left = 640.0
+offset_top = 448.0
+offset_right = 896.0
+offset_bottom = 528.0
+
+[node name="ResetButton" type="Button" parent="PauseMenu/PanelContainer2"]
+layout_mode = 2
+text = "Reset"
+
+[connection signal="timeout" from="EnemyTimer" to="." method="_on_enemy_timer_timeout"]
+[connection signal="timeout" from="EnemyTimer2" to="." method="_on_enemy_timer_2_timeout"]
+[connection signal="timeout" from="EnemyTimer3" to="." method="_on_enemy_timer_3_timeout"]
+[connection signal="timeout" from="RestartTimer" to="." method="_on_restart_timer_timeout"]
+[connection signal="timeout" from="EnemyTimer4" to="." method="_on_enemy_timer_4_timeout"]
+[connection signal="pressed" from="PauseMenu/PanelContainer/UnpauseButton" to="." method="_on_unpause_button_pressed"]
+[connection signal="pressed" from="PauseMenu/PanelContainer2/ResetButton" to="." method="_on_reset_button_pressed"]

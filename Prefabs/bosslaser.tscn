@@ -1,0 +1,52 @@
+[gd_scene load_steps=8 format=3 uid="uid://bix6vuts7jdjx"]
+
+[ext_resource type="Script" uid="uid://cisnutkgdk70m" path="res://Scripts/bosslaser.gd" id="1_g7gib"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rkcpi"]
+size = Vector2(128, 32)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_kfhd5"]
+load_path = "res://.godot/imported/rocket1.svg-ef6308016252547ab0609d4c41772795.ctex"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_g7gib"]
+load_path = "res://.godot/imported/rocket2.svg-c18a5f2346533ab9c2c3407aacf737b7.ctex"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_ivrtw"]
+load_path = "res://.godot/imported/rocket3.svg-a11b1d4e51b95a01133fbc2f54a034e4.ctex"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_rkcpi"]
+load_path = "res://.godot/imported/rocket4.svg-48255bc716dc9264008e4e8d48f4108e.ctex"
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_kfhd5"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("CompressedTexture2D_kfhd5")
+}, {
+"duration": 1.0,
+"texture": SubResource("CompressedTexture2D_g7gib")
+}, {
+"duration": 1.0,
+"texture": SubResource("CompressedTexture2D_ivrtw")
+}, {
+"duration": 1.0,
+"texture": SubResource("CompressedTexture2D_rkcpi")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="bosslaser" type="Area2D"]
+script = ExtResource("1_g7gib")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_rkcpi")
+
+[node name="bosslaser_animation" type="AnimatedSprite2D" parent="."]
+position = Vector2(9.53674e-07, 0)
+scale = Vector2(0.189911, 0.111498)
+sprite_frames = SubResource("SpriteFrames_kfhd5")
+frame_progress = 0.0259076
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]

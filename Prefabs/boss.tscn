@@ -1,0 +1,39 @@
+[gd_scene load_steps=4 format=3 uid="uid://eiwxpv5sywhg"]
+
+[ext_resource type="Script" uid="uid://cuie0hm5j5jyk" path="res://Scripts/boss.gd" id="1_fj87s"]
+[ext_resource type="Texture2D" uid="uid://ba3bmqtvtdpyk" path="res://skins/angryicon.svg" id="2_obrrb"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bl7bk"]
+size = Vector2(256, 256)
+
+[node name="Boss" type="Area2D"]
+script = ExtResource("1_fj87s")
+
+[node name="Angryicon" type="Sprite2D" parent="."]
+position = Vector2(3.8147e-06, 3.8147e-06)
+scale = Vector2(2, 2)
+texture = ExtResource("2_obrrb")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_bl7bk")
+
+[node name="Bosstimer" type="Timer" parent="."]
+autostart = true
+
+[node name="Label" type="Label" parent="."]
+offset_left = -96.0
+offset_top = -160.0
+offset_right = 96.0
+offset_bottom = -136.0
+
+[node name="Health_bar" type="ProgressBar" parent="Label"]
+layout_mode = 0
+offset_top = -3.0
+offset_right = 192.0
+offset_bottom = 24.0
+step = 10.0
+show_percentage = false
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="boss_killed" from="." to="." method="_on_boss_killed"]
+[connection signal="timeout" from="Bosstimer" to="." method="_on_bosstimer_timeout"]

@@ -1,0 +1,56 @@
+[gd_scene load_steps=8 format=3 uid="uid://dykm3g7fg7uct"]
+
+[ext_resource type="Script" uid="uid://dnxjjyic1prjt" path="res://Scripts/enemy.gd" id="1_lgw76"]
+[ext_resource type="Texture2D" uid="uid://bhpuh7qftn1lx" path="res://skins/BF109E/Bf109E 1.svg" id="2_80imi"]
+[ext_resource type="Texture2D" uid="uid://d2cboy70dg3n5" path="res://skins/BF109E/Bf109E 2.svg" id="3_osttl"]
+[ext_resource type="Texture2D" uid="uid://dxfo411ff8rr2" path="res://skins/BF109E/Bf109E 3.svg" id="4_g7nnu"]
+[ext_resource type="Texture2D" uid="uid://bg2hafhggai3g" path="res://skins/BF109E/Bf109E 4.svg" id="5_kuc4i"]
+[ext_resource type="Texture2D" uid="uid://bmcbik3kl8o5b" path="res://skins/BF109E/Bf109E 5.svg" id="6_ggq53"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_xk43f"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_80imi")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_osttl")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_g7nnu")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_kuc4i")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_ggq53")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_g7nnu")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Enemy" type="Area2D"]
+process_mode = 1
+script = ExtResource("1_lgw76")
+
+[node name="enemylasertimer" type="Timer" parent="."]
+wait_time = 2.0
+autostart = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.295304, 0.295304)
+sprite_frames = SubResource("SpriteFrames_xk43f")
+frame_progress = 0.0388333
+speed_scale = 50.0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+position = Vector2(-5.68434e-14, -40)
+scale = Vector2(0.718152, 0.718152)
+polygon = PackedVector2Array(-16, -16, -133.676, 0, -133.676, 22.2794, -11.1397, 55.6985, -11.1397, 133.676, -33.4191, 133.676, -44.5588, 144.816, -44.5588, 155.956, -22.2794, 167.096, -11.1397, 167.096, 7.91523e-14, 178.235, 11.1397, 167.096, 22.2794, 167.096, 44.5588, 155.956, 44.5588, 144.816, 33.4191, 133.676, 11.1397, 133.676, 11.1397, 55.6985, 133.676, 22.2794, 133.676, 0, 16, -16, 8, -64, -8, -64)
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="timeout" from="enemylasertimer" to="." method="_on_enemylasertimer_timeout"]

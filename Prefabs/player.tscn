@@ -1,0 +1,63 @@
+[gd_scene load_steps=9 format=3 uid="uid://dt61mx5v8mxvg"]
+
+[ext_resource type="Script" uid="uid://cec6sx2vfnagv" path="res://Scripts/player.gd" id="1_5wxv7"]
+[ext_resource type="Texture2D" uid="uid://garab3f8825e" path="res://skins/Spitfire(M)/Spitfire 1.svg" id="2_hck1p"]
+[ext_resource type="Texture2D" uid="uid://cp41w2nt4y012" path="res://skins/Spitfire(M)/Spitfire 2.svg" id="3_juxdh"]
+[ext_resource type="Texture2D" uid="uid://cwyl5okg3duxx" path="res://skins/Spitfire(M)/Spitfire 3.svg" id="4_4qbli"]
+[ext_resource type="Texture2D" uid="uid://bbfnem7gjseya" path="res://skins/Spitfire(M)/Spitfire 4.svg" id="5_08u7w"]
+[ext_resource type="Texture2D" uid="uid://xtuvjl7afgv6" path="res://skins/Spitfire(M)/Spitfire 5.svg" id="6_kgmex"]
+[ext_resource type="PackedScene" uid="uid://imkrndcepjna" path="res://Prefabs/spawner_component.tscn" id="7_bapbj"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_2xbkd"]
+animations = [{
+"frames": [{
+"duration": 2.0,
+"texture": ExtResource("2_hck1p")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_juxdh")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_4qbli")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_08u7w")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_kgmex")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_4qbli")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Player" type="Area2D"]
+process_mode = 1
+scale = Vector2(0.56, 0.56)
+script = ExtResource("1_5wxv7")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
+sprite_frames = SubResource("SpriteFrames_2xbkd")
+autoplay = "default"
+frame = 1
+frame_progress = 0.198792
+speed_scale = 50.0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+position = Vector2(-16, 8)
+polygon = PackedVector2Array(144, -24, 200, -56, 200, -80, 144, -88, 80, -96, 32, -96, 32, -136, 16, -152, 0, -136, 0, -96, -48, -96, -112, -88, -168, -80, -168, -56, -112, -24, -48, -16, 0, -8, 8, 96, -40, 112, -40, 136, 16, 152, 72, 136, 72, 112, 24, 96, 32, -8, 80, -16)
+
+[node name="Muzzle 4" type="Marker2D" parent="."]
+position = Vector2(-71.4286, -85.7143)
+
+[node name="Muzzle 5" type="Marker2D" parent="."]
+position = Vector2(57.1428, -85.7143)
+
+[node name="SpawnerComponent" parent="." instance=ExtResource("7_bapbj")]
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="player_killed" from="." to="." method="_on_player_killed"]

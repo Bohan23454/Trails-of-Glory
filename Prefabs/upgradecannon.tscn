@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://cfooa0c34f7ks"]
+
+[ext_resource type="Script" uid="uid://bur07f3evy4xb" path="res://Scripts/upgradecannon.gd" id="1_ifckn"]
+[ext_resource type="Texture2D" uid="uid://bqtaajgencrw5" path="res://skins/cannonupgrade.svg" id="2_ifckn"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_w2lsc"]
+size = Vector2(64, 64)
+
+[node name="Upgradecannon" type="Area2D"]
+process_mode = 1
+script = ExtResource("1_ifckn")
+metadata/_edit_group_ = true
+
+[node name="Upgradecannon" type="Sprite2D" parent="."]
+position = Vector2(-7.15256e-07, 3.33786e-06)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_ifckn")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_w2lsc")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]

@@ -1,0 +1,25 @@
+[gd_scene load_steps=4 format=3 uid="uid://bppbq84fl0vk7"]
+
+[ext_resource type="Script" uid="uid://dxpvut6re4gef" path="res://Scripts/enemylaser.gd" id="1_mjnbg"]
+[ext_resource type="Texture2D" uid="uid://ba3bmqtvtdpyk" path="res://skins/angryicon.svg" id="2_8xyam"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yb45u"]
+size = Vector2(32, 4)
+
+[node name="enemylaser" type="Area2D"]
+process_mode = 1
+script = ExtResource("1_mjnbg")
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-3.57628e-07, 0)
+scale = Vector2(0.25, 0.03125)
+texture = ExtResource("2_8xyam")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_yb45u")
+
+[node name="Enemytimer" type="Timer" parent="."]
+autostart = true
+
+[connection signal="timeout" from="Enemytimer" to="." method="_on_timer_timeout"]
