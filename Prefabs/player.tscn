@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://dt61mx5v8mxvg"]
+[gd_scene load_steps=21 format=3 uid="uid://dt61mx5v8mxvg"]
 
 [ext_resource type="Script" uid="uid://cec6sx2vfnagv" path="res://Scripts/player.gd" id="1_5wxv7"]
 [ext_resource type="Texture2D" uid="uid://garab3f8825e" path="res://skins/Spitfire(M)/Spitfire 1.svg" id="2_hck1p"]
@@ -7,6 +7,16 @@
 [ext_resource type="Texture2D" uid="uid://bbfnem7gjseya" path="res://skins/Spitfire(M)/Spitfire 4.svg" id="5_08u7w"]
 [ext_resource type="Texture2D" uid="uid://xtuvjl7afgv6" path="res://skins/Spitfire(M)/Spitfire 5.svg" id="6_kgmex"]
 [ext_resource type="PackedScene" uid="uid://imkrndcepjna" path="res://Prefabs/spawner_component.tscn" id="7_bapbj"]
+[ext_resource type="Texture2D" uid="uid://dp082wgl57p35" path="res://skins/Spitfire(M)/spitfire right 1.svg" id="8_3vpsw"]
+[ext_resource type="Texture2D" uid="uid://b22gqh0xhptfi" path="res://skins/Spitfire(M)/spitfire right 2.svg" id="9_m62uw"]
+[ext_resource type="Texture2D" uid="uid://6j2nck71qs07" path="res://skins/Spitfire(M)/spitfire right 3.svg" id="10_b30ri"]
+[ext_resource type="Texture2D" uid="uid://carj0vrdmhihb" path="res://skins/Spitfire(M)/spitfire right 4.svg" id="11_ms580"]
+[ext_resource type="Texture2D" uid="uid://c03yd3j5jl7t4" path="res://skins/Spitfire(M)/spitfire right 5.svg" id="12_q7l0e"]
+[ext_resource type="Texture2D" uid="uid://v1523e6c8mdo" path="res://skins/Spitfire(M)/spitfire left 1.svg" id="13_0fs2y"]
+[ext_resource type="Texture2D" uid="uid://b321yik6ck4jw" path="res://skins/Spitfire(M)/spitfire left 2.svg" id="14_wphcr"]
+[ext_resource type="Texture2D" uid="uid://dtkx5ubp1f1a8" path="res://skins/Spitfire(M)/spitfire left 3.svg" id="15_and0b"]
+[ext_resource type="Texture2D" uid="uid://catft3ij8wgjk" path="res://skins/Spitfire(M)/spitfire left 4.svg" id="16_405c5"]
+[ext_resource type="Texture2D" uid="uid://b2hk2n8ffauk0" path="res://skins/Spitfire(M)/spitfire left 5.svg" id="17_i3mxk"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_2xbkd"]
 animations = [{
@@ -34,20 +44,70 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="SpriteFrames" id="SpriteFrames_0fs2y"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("8_3vpsw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_m62uw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_b30ri")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_ms580")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_q7l0e")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_b30ri")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_qvmbc"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("13_0fs2y")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_wphcr")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_and0b")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16_405c5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("17_i3mxk")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
 [node name="Player" type="Area2D"]
 process_mode = 1
-scale = Vector2(0.56, 0.56)
+scale = Vector2(0.45, 0.45)
 script = ExtResource("1_5wxv7")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-scale = Vector2(0.5, 0.5)
+[node name="Spitfire" type="AnimatedSprite2D" parent="."]
+position = Vector2(-8.38392e-07, 6.59546e-07)
+scale = Vector2(0.503778, 0.503779)
 sprite_frames = SubResource("SpriteFrames_2xbkd")
 autoplay = "default"
 frame = 1
 frame_progress = 0.198792
 speed_scale = 50.0
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+[node name="Spitfire_hitbox" type="CollisionPolygon2D" parent="."]
 position = Vector2(-16, 8)
 polygon = PackedVector2Array(144, -24, 200, -56, 200, -80, 144, -88, 80, -96, 32, -96, 32, -136, 16, -152, 0, -136, 0, -96, -48, -96, -112, -88, -168, -80, -168, -56, -112, -24, -48, -16, 0, -8, 8, 96, -40, 112, -40, 136, 16, 152, 72, 136, 72, 112, 24, 96, 32, -8, 80, -16)
 
@@ -55,9 +115,54 @@ polygon = PackedVector2Array(144, -24, 200, -56, 200, -80, 144, -88, 80, -96, 32
 position = Vector2(-71.4286, -85.7143)
 
 [node name="Muzzle 5" type="Marker2D" parent="."]
-position = Vector2(57.1428, -85.7143)
+position = Vector2(71.4286, -85.7143)
 
 [node name="SpawnerComponent" parent="." instance=ExtResource("7_bapbj")]
 
+[node name="Spitfire_right" type="AnimatedSprite2D" parent="."]
+visible = false
+scale = Vector2(0.504, 0.504)
+sprite_frames = SubResource("SpriteFrames_0fs2y")
+frame_progress = 0.81164
+speed_scale = 50.0
+offset = Vector2(-4.13359, 12.4008)
+
+[node name="Spitfire_hitbox_right" type="CollisionPolygon2D" parent="."]
+visible = false
+polygon = PackedVector2Array(-2.08333, -145.833, -16.6666, -133.333, -29.1666, -104.167, -35.4166, -89.5833, -35.4166, -22.9167, -31.2499, -2.08333, -12.5, 147.917, 0, 166.667, 35.4166, 160.417, 45.8332, 150, 43.7499, 133.333, 14.5833, 110.417, 25, -31.25, 14.5833, -47.9167, 10.4166, -131.25, 4.16666, -145.833)
+
+[node name="Muzzle 5 right" type="Marker2D" parent="."]
+visible = false
+z_index = -1
+position = Vector2(-24.9999, -91.6667)
+
+[node name="Muzzle 5 left" type="Marker2D" parent="."]
+visible = false
+z_index = -1
+position = Vector2(18.75, -91.6667)
+
+[node name="Muzzle 4 right" type="Marker2D" parent="."]
+visible = false
+position = Vector2(-20.8333, -91.6667)
+
+[node name="Muzzle 4 left" type="Marker2D" parent="."]
+visible = false
+position = Vector2(22.9166, -91.6667)
+
+[node name="Spitfire_left" type="AnimatedSprite2D" parent="."]
+visible = false
+z_index = -2
+scale = Vector2(0.504, 0.504)
+sprite_frames = SubResource("SpriteFrames_qvmbc")
+frame_progress = 0.34675
+speed_scale = 50.0
+offset = Vector2(-4.13359, 12.4008)
+
+[node name="Spitfire_hitbox_left" type="CollisionPolygon2D" parent="."]
+visible = false
+scale = Vector2(-1, 1)
+polygon = PackedVector2Array(-2.08333, -145.833, -16.6666, -133.333, -29.1666, -104.167, -35.4166, -89.5833, -35.4166, -22.9167, -31.2499, -2.08333, -12.5, 147.917, 0, 166.667, 35.4166, 160.417, 45.8332, 150, 43.7499, 133.333, 14.5833, 110.417, 25, -31.25, 14.5833, -47.9167, 10.4166, -131.25, 4.16666, -145.833)
+
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="player_damaged" from="." to="." method="_on_player_damaged"]
 [connection signal="player_killed" from="." to="." method="_on_player_killed"]

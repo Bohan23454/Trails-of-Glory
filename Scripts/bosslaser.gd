@@ -4,7 +4,7 @@ class_name bosslaser
 
 @onready var bosslaser_animation = $bosslaser_animation
 
-@export var speed = 8
+@export var speed = 5
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -13,7 +13,7 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	position.x -= speed * 2
+	position.y += speed * 2
 
 func _on_area_entered(area: Area2D) -> void:
 	if area is laser:

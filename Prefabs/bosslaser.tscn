@@ -47,6 +47,6 @@ shape = SubResource("RectangleShape2D_rkcpi")
 position = Vector2(9.53674e-07, 0)
 scale = Vector2(0.189911, 0.111498)
 sprite_frames = SubResource("SpriteFrames_kfhd5")
-frame_progress = 0.0259076
+frame_progress = 0.941935
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]

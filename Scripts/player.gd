@@ -2,14 +2,34 @@ extends Area2D
 
 class_name player
 
-# Learning this
 @onready var muzzle4: Marker2D = $"Muzzle 4"
 @onready var muzzle5: Marker2D = $"Muzzle 5"
+@onready var muzzle4_right: Marker2D = $"Muzzle 4 right"
+@onready var muzzle5_right: Marker2D = $"Muzzle 5 right"
+@onready var muzzle4_left: Marker2D = $"Muzzle 4 left"
+@onready var muzzle5_left: Marker2D = $"Muzzle 5 left"
 @onready var spawner_component: Node2D = $SpawnerComponent
-# https://www.youtube.com/watch?v=eq-UConTTuo&list=PL9FzW-m48fn09w6j8NowI_pSBVcsb3V78&index=2 Dumbass
+# https://www.youtube.com/watch?v=eq-UConTTuo&list=PL9FzW-m48fn09w6j8NowI_pSBVcsb3V78&index=2
 @onready var laser_prefab = preload("res://Prefabs/laser.tscn")
+var player_health = 100
+var current_health = player_health
 
+#Animation
+@onready var Spitfire_animation = $Spitfire
+@onready var Spitfire_animation_right = $Spitfire_right
+@onready var Spitfire_animation_left = $Spitfire_left
+var right = false
+var left = false
+var right_left = false
+#Animation
+
+#Hitbox
+@onready var Spitfire_hitbox = $Spitfire_hitbox
+@onready var Spitfire_hitbox_right = $Spitfire_hitbox_right
+@onready var Spitfire_hitbox_left = $Spitfire_hitbox_left
+#Hitbox 
 signal player_killed
+signal player_damaged
 
 signal player_upgrade
 
@@ -23,10 +43,15 @@ var laser_speed = 25
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass
-	
+	Spitfire_animation.play()
+	Spitfire_animation_right.play()
+	Spitfire_animation_left.play()
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
+	print(player_health)
+	right = false
+	left = false
+	right_left = false
 	if year == 40:
 		topspeed = 0
 	if year == 41:
@@ -44,55 +69,94 @@ func _process(delta: float) -> void:
 		position.y += acc_speed * 3
 	if Input.is_action_pressed("player_acc") and position.y > topspeed:
 		position.y -= acc_speed
-	if Input.is_action_pressed("player_right") and position.x < 592:
+	if Input.is_action_pressed("player_right") and position.x < 592 and right_left != true:
+		right = true
 		position.x += 8
-	if Input.is_action_pressed("player_left") and position.x > 112:
+	if Input.is_action_pressed("player_left") and position.x > 112 and right_left != true:
+		left = true
 		position.x -= 8
+	if Input.is_action_pressed("player_right") and Input.is_action_pressed("player_left"):
+		right_left = true
 	currentshoottime += delta
-	if upgradetimes > 10 and Input.is_action_pressed("player_shoot") and currentshoottime > shoottime:
-		var laser = laser_prefab.instantiate()
-		laser.speed = laser_speed
-		laser.position = position
-		get_parent().add_child(laser)
-		currentshoottime = 0.05 + 0.001 * upgradetimes
-	if upgradetimes > 1 and Input.is_action_pressed("player_shoot") and currentshoottime > shoottime:
-		var laser = laser_prefab.instantiate()
-		laser.speed = laser_speed
-		laser.position = position
-		get_parent().add_child(laser)
-		currentshoottime = 0 + 0.005 * upgradetimes
-	if upgradetimes == 1 and Input.is_action_pressed("player_shoot") and currentshoottime > shoottime:
-		var laser = laser_prefab.instantiate()
-		laser.speed = laser_speed
-		laser.position = position
-		get_parent().add_child(laser)
-		currentshoottime = 0
-	if Input.is_action_just_pressed("player_shoot"):
+	# if upgradetimes == 1 and Input.is_action_pressed("player_shoot") and currentshoottime > shoottime:
+		# var laser = laser_prefab.instantiate()
+		# laser.speed = laser_speed
+		# laser.position = position
+		# get_parent().add_child(laser)
+		# currentshoottime = 1
+	if Input.is_action_pressed("player_shoot") and currentshoottime > shoottime and right == false and left == false:
 		spawner_component.spawn(muzzle4.global_position)
 		spawner_component.spawn(muzzle5.global_position)
+		currentshoottime = 0.1
+	if Input.is_action_pressed("player_shoot") and currentshoottime > shoottime and right == true and left == false:
+		spawner_component.spawn(muzzle4_right.global_position)
+		spawner_component.spawn(muzzle5_right.global_position)
+		currentshoottime = 0.1
+	if Input.is_action_pressed("player_shoot") and currentshoottime > shoottime and right == false and left == true:
+		spawner_component.spawn(muzzle4_left.global_position)
+		spawner_component.spawn(muzzle5_left.global_position)
+		currentshoottime = 0.1
+	if Input.is_action_pressed("player_shoot") and currentshoottime > shoottime and right_left == true:
+		spawner_component.spawn(muzzle4.global_position)
+		spawner_component.spawn(muzzle5.global_position)
+		currentshoottime = 0.1
+	if right_left == true:
+		Spitfire_animation.show()
+		Spitfire_animation_right.hide()
+		Spitfire_animation_left.hide()
+		Spitfire_hitbox.disabled = false
+		Spitfire_hitbox_right.disabled = true
+		Spitfire_hitbox_left.disabled = true
+	if right == false and left == false:
+		Spitfire_animation.show()
+		Spitfire_animation_right.hide()
+		Spitfire_animation_left.hide()
+		Spitfire_hitbox.disabled = false
+		Spitfire_hitbox_right.disabled = true
+		Spitfire_hitbox_left.disabled = true
+	if right == true and right_left != true:
+		await get_tree().create_timer(0.05).timeout
+		Spitfire_animation.hide()
+		Spitfire_animation_right.show()
+		Spitfire_animation_left.hide()
+		Spitfire_hitbox.disabled = true
+		Spitfire_hitbox_right.disabled = false
+		Spitfire_hitbox_left.disabled = true
+	if left == true and right_left != true:
+		await get_tree().create_timer(0.05).timeout
+		Spitfire_animation.hide()
+		Spitfire_animation_right.hide()
+		Spitfire_animation_left.show()
+		Spitfire_hitbox.disabled = true
+		Spitfire_hitbox_right.disabled = true
+		Spitfire_hitbox_left.disabled = false
+	if player_health <= 0:
+		queue_free()
+		player_killed.emit()
 
 func _on_area_entered(area: Area2D) -> void:
 	if area is enemylaser:
-		player_killed.emit()
-		queue_free()
+		player_health -= 5
+		player_damaged.emit()
 	if area is enemyarea:
-		player_killed.emit()
-		queue_free()
+		player_health -= 100
+		player_damaged.emit()
 	if area is boss:
-		player_killed.emit()
-		queue_free()
+		player_health -= 100
+		player_damaged.emit()
 	if area is bosslaser:
-		player_killed.emit()
-		queue_free()
-	if area is upgradecannon:
-		player_upgrade.connect(_on_player_upgrade)
-		player_upgrade.emit()
+		player_health -= 100
+		player_damaged.emit()
+		
+	#if area is upgradecannon:
+		#player_upgrade.connect(_on_player_upgrade)
+		#player_upgrade.emit()
 
 func _on_player_killed() -> void:
 	$"../RestartTimer".start()
 	pass
 	
-func _on_player_upgrade() -> void:
-	upgradetimes += 1 
-	
-	
+
+
+func _on_player_damaged() -> void:
+	current_health = player_health

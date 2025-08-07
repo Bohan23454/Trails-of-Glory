@@ -1,7 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://bqu6nx6bhrjjn"]
+[gd_scene load_steps=8 format=3 uid="uid://bqu6nx6bhrjjn"]
 
 [ext_resource type="Script" uid="uid://b8mx762ql6ijg" path="res://Scripts/game.gd" id="1_vc7v3"]
 [ext_resource type="PackedScene" uid="uid://dt61mx5v8mxvg" path="res://Prefabs/player.tscn" id="2_6bh61"]
+[ext_resource type="Texture2D" uid="uid://1mjlxvw6notp" path="res://skins/healbar player/Health bar 0.svg" id="2_qepiu"]
+[ext_resource type="Texture2D" uid="uid://c6h36lkbqaich" path="res://skins/healbar player/Health bar_player.svg" id="3_xfscx"]
+[ext_resource type="Script" uid="uid://bbcb3rmalmitt" path="res://player_health_bar.gd" id="4_xfscx"]
 
 [sub_resource type="FontFile" id="FontFile_feb5d"]
 cache/0/16/0/ascent = 0.0
@@ -24,6 +27,7 @@ process_mode = 3
 script = ExtResource("1_vc7v3")
 
 [node name="EnemyTimer" type="Timer" parent="."]
+wait_time = 7.5
 autostart = true
 
 [node name="EnemyTimer2" type="Timer" parent="."]
@@ -36,11 +40,11 @@ autostart = true
 
 [node name="Game_ui" type="Control" parent="."]
 z_index = 2
-custom_minimum_size = Vector2(1152, 75)
+custom_minimum_size = Vector2(700, 925)
 layout_mode = 3
 anchors_preset = 0
-offset_right = 128.0
-offset_bottom = 64.0
+offset_right = 700.0
+offset_bottom = 925.0
 theme = SubResource("Theme_fc0e3")
 
 [node name="ScoreLabel" type="Label" parent="Game_ui"]
@@ -48,14 +52,27 @@ layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -48.0
+offset_left = 234.0
 offset_top = 8.0
-offset_right = 49.0
+offset_right = 336.0
 offset_bottom = 36.0
 grow_horizontal = 2
 text = "Score: 0000"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="CanvasLayer" type="CanvasLayer" parent="Game_ui"]
+
+[node name="player_health_bar" type="TextureProgressBar" parent="Game_ui/CanvasLayer" node_paths=PackedStringArray("player")]
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 764.0
+offset_bottom = 159.0
+scale = Vector2(0.2, 0.2)
+texture_under = ExtResource("2_qepiu")
+texture_progress = ExtResource("3_xfscx")
+script = ExtResource("4_xfscx")
+player = NodePath("../../../Player")
 
 [node name="RestartTimer" type="Timer" parent="."]
 
@@ -63,6 +80,7 @@ vertical_alignment = 1
 autostart = true
 
 [node name="PauseMenu" type="Control" parent="."]
+visible = false
 z_index = 2
 layout_mode = 3
 anchors_preset = 0
@@ -74,9 +92,8 @@ light_mask = 2
 visibility_layer = 2
 z_index = 1
 layout_mode = 0
-offset_top = -104.0
 offset_right = 1173.0
-offset_bottom = 1673.0
+offset_bottom = 1598.0
 scale = Vector2(0.600313, 0.580861)
 color = Color(0.494118, 0.494118, 0.494118, 0.309804)
 
@@ -117,7 +134,7 @@ layout_mode = 2
 text = "Reset"
 
 [node name="Player" parent="." instance=ExtResource("2_6bh61")]
-position = Vector2(344, 824)
+position = Vector2(336, 784)
 
 [connection signal="timeout" from="EnemyTimer" to="." method="_on_enemy_timer_timeout"]
 [connection signal="timeout" from="EnemyTimer2" to="." method="_on_enemy_timer_2_timeout"]

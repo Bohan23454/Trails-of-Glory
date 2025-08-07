@@ -1,5 +1,7 @@
 extends Node2D
 
+#https://www.youtube.com/watch?v=UEJcUnq2dfU
+
 @onready var enemy_prefab = preload("res://Prefabs/enemy.tscn")
 @onready var boss_prefab = preload("res://Prefabs/boss.tscn")
 @onready var Upgradecannon_prefab = preload("res://Prefabs/upgradecannon.tscn")
@@ -37,41 +39,44 @@ func _process(delta: float) -> void:
 		boss_spawned += 1
 
 func _on_enemy_timer_timeout():
-	var enemy = enemy_prefab.instantiate()
-	var random_y = randi_range(30, 610)
-	enemy.position = Vector2(1300, random_y)
-	enemy.enemy_killed.connect(_on_enemy_killed)
-	add_child(enemy)
-
-func _on_enemy_timer_2_timeout() -> void:
-	if score > 50:
+	for i in range(2):
+		var enemy_x = randi_range(-32, 32)
+		var enemy_po1 = 128 + enemy_x
+		var enemy_po2 = 296 + enemy_x
+		var enemy_po3 = 464 + enemy_x
+		var enemy_po4 = 592 + enemy_x
+		#Leader's wingman
 		var enemy = enemy_prefab.instantiate()
-		var random_y = randi_range(30, 610)
-		enemy.position = Vector2(1300, random_y)
+		#var random_x = randi_range(, 610)
+		enemy.position = Vector2(enemy_po1, 0)
 		enemy.enemy_killed.connect(_on_enemy_killed)
 		add_child(enemy)
-	else:
-		pass
-
-func _on_enemy_timer_3_timeout() -> void:
-	if score > 100:
-		var enemy = enemy_prefab.instantiate()
-		var random_y = randi_range(30, 610)
-		enemy.position = Vector2(1300, random_y)
+		#Flying leader
+		enemy = enemy_prefab.instantiate()
+		enemy.position = Vector2(enemy_po2, 144)
 		enemy.enemy_killed.connect(_on_enemy_killed)
 		add_child(enemy)
-	else:
-		pass
-
-func _on_enemy_timer_4_timeout() -> void:
-	if score > 200:
-		var enemy = enemy_prefab.instantiate()
-		var random_y = randi_range(30, 610)
-		enemy.position = Vector2(1300, random_y)
+		#Leader of the second pair
+		enemy = enemy_prefab.instantiate()
+		enemy.position = Vector2(enemy_po3, 0)
 		enemy.enemy_killed.connect(_on_enemy_killed)
 		add_child(enemy)
-	else:
-		pass
+		#Second leader's wing man
+		enemy = enemy_prefab.instantiate()
+		enemy.position = Vector2(enemy_po4, -144)
+		enemy.enemy_killed.connect(_on_enemy_killed)
+		add_child(enemy)
+		await get_tree().create_timer(2.0).timeout
+
+#func _on_enemy_timer_2_timeout() -> void:
+	#if score > 50:
+		#var enemy = enemy_prefab.instantiate()
+		#var random_y = randi_range(30, 610)
+		#enemy.position = Vector2(1300, random_y)
+		#enemy.enemy_killed.connect(_on_enemy_killed)
+		#add_child(enemy)
+	#else:
+		#pass
 
 func _update_ui():
 	$Game_ui/ScoreLabel.text = "Score: " + str(score)

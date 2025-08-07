@@ -3,15 +3,17 @@ extends Area2D
 class_name laser
 
 @export var speed = 25
+@onready var laser_animation = $laser_animation
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass # Replace with function body.
+	laser_animation.play()
+	
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	position.x += speed
+	position.y -= speed
 
 func _on_area_entered(area) -> void:
 	if area is enemyarea:

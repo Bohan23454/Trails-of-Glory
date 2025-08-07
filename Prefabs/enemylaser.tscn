@@ -8,6 +8,7 @@ size = Vector2(32, 4)
 
 [node name="enemylaser" type="Area2D"]
 process_mode = 1
+rotation = -1.57079
 script = ExtResource("1_mjnbg")
 metadata/_edit_group_ = true
 
@@ -19,7 +20,8 @@ texture = ExtResource("2_8xyam")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_yb45u")
 
-[node name="Enemytimer" type="Timer" parent="."]
-autostart = true
+[node name="Enemy_laser_die_timer" type="Timer" parent="."]
+wait_time = 8.0
 
-[connection signal="timeout" from="Enemytimer" to="." method="_on_timer_timeout"]
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="timeout" from="Enemy_laser_die_timer" to="." method="_on_enemy_laser_die_timer_timeout"]
