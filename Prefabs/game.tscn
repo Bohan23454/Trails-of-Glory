@@ -1,10 +1,14 @@
-[gd_scene load_steps=8 format=3 uid="uid://bqu6nx6bhrjjn"]
+[gd_scene load_steps=12 format=3 uid="uid://bqu6nx6bhrjjn"]
 
 [ext_resource type="Script" uid="uid://b8mx762ql6ijg" path="res://Scripts/game.gd" id="1_vc7v3"]
 [ext_resource type="PackedScene" uid="uid://dt61mx5v8mxvg" path="res://Prefabs/player.tscn" id="2_6bh61"]
 [ext_resource type="Texture2D" uid="uid://1mjlxvw6notp" path="res://skins/healbar player/Health bar 0.svg" id="2_qepiu"]
 [ext_resource type="Texture2D" uid="uid://c6h36lkbqaich" path="res://skins/healbar player/Health bar_player.svg" id="3_xfscx"]
 [ext_resource type="Script" uid="uid://bbcb3rmalmitt" path="res://player_health_bar.gd" id="4_xfscx"]
+[ext_resource type="Texture2D" uid="uid://bl6vsdpunabuy" path="res://skins/healbar player/overheatcirclebar.svg" id="5_ml5ix"]
+[ext_resource type="Texture2D" uid="uid://gbj4u3m2pq8t" path="res://skins/healbar player/overheatcirclebar1.svg" id="6_iv821"]
+[ext_resource type="Script" uid="uid://dbwtfpdu1df7x" path="res://Scripts/player_overheat_bar.gd" id="6_ml5ix"]
+[ext_resource type="Texture2D" uid="uid://v82obvuafxm3" path="res://skins/healbar player/overheatcirclebar2.svg" id="6_tefna"]
 
 [sub_resource type="FontFile" id="FontFile_feb5d"]
 cache/0/16/0/ascent = 0.0
@@ -43,8 +47,10 @@ z_index = 2
 custom_minimum_size = Vector2(700, 925)
 layout_mode = 3
 anchors_preset = 0
-offset_right = 700.0
-offset_bottom = 925.0
+offset_left = 1.0
+offset_top = 32.0
+offset_right = 701.0
+offset_bottom = 957.0
 theme = SubResource("Theme_fc0e3")
 
 [node name="ScoreLabel" type="Label" parent="Game_ui"]
@@ -64,14 +70,27 @@ vertical_alignment = 1
 [node name="CanvasLayer" type="CanvasLayer" parent="Game_ui"]
 
 [node name="player_health_bar" type="TextureProgressBar" parent="Game_ui/CanvasLayer" node_paths=PackedStringArray("player")]
-offset_left = 8.0
-offset_top = 8.0
-offset_right = 764.0
-offset_bottom = 159.0
-scale = Vector2(0.2, 0.2)
+offset_left = 11.0
+offset_top = 15.0
+offset_right = 767.0
+offset_bottom = 166.0
+scale = Vector2(0.3, 0.3)
 texture_under = ExtResource("2_qepiu")
 texture_progress = ExtResource("3_xfscx")
 script = ExtResource("4_xfscx")
+player = NodePath("../../../Player")
+
+[node name="player_overheat_bar" type="TextureProgressBar" parent="Game_ui/CanvasLayer" node_paths=PackedStringArray("player")]
+offset_left = 11.0
+offset_top = 66.0
+offset_right = 200.0
+offset_bottom = 255.0
+scale = Vector2(0.55, 0.55)
+fill_mode = 4
+texture_under = ExtResource("5_ml5ix")
+texture_over = ExtResource("6_tefna")
+texture_progress = ExtResource("6_iv821")
+script = ExtResource("6_ml5ix")
 player = NodePath("../../../Player")
 
 [node name="RestartTimer" type="Timer" parent="."]

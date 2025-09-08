@@ -163,6 +163,13 @@ visible = false
 scale = Vector2(-1, 1)
 polygon = PackedVector2Array(-2.08333, -145.833, -16.6666, -133.333, -29.1666, -104.167, -35.4166, -89.5833, -35.4166, -22.9167, -31.2499, -2.08333, -12.5, 147.917, 0, 166.667, 35.4166, 160.417, 45.8332, 150, 43.7499, 133.333, 14.5833, 110.417, 25, -31.25, 14.5833, -47.9167, 10.4166, -131.25, 4.16666, -145.833)
 
+[node name="Regen_timer" type="Timer" parent="."]
+wait_time = 8.0
+autostart = true
+
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="cooling" from="." to="." method="_on_cooling"]
+[connection signal="overheat" from="." to="." method="_on_overheat"]
 [connection signal="player_damaged" from="." to="." method="_on_player_damaged"]
 [connection signal="player_killed" from="." to="." method="_on_player_killed"]
+[connection signal="timeout" from="Regen_timer" to="." method="_on_regen_timer_timeout"]

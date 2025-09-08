@@ -1,8 +1,7 @@
-# Give the component a class name so it can be instanced as a custom node
+
 class_name EnemySpawnerComponent
 extends Node2D
 
-# Export the dependencies for this component
 # The scene we want to spawn
 @export var scene = preload("res://Prefabs/enemylaser.tscn")
 
@@ -18,7 +17,6 @@ func spawn(global_spawn_position: Vector2 = global_position, global_spawn_rotati
 	# Update the global position of the instance.
 	# (This must be done after adding it as a child)
 	instance.global_position = global_spawn_position
-	
 	instance.global_rotation = global_spawn_rotation
 	# Return the instance in case we want to perform any other operations
 	# on it after instancing it.

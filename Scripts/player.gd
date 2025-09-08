@@ -31,6 +31,15 @@ var right_left = false
 signal player_killed
 signal player_damaged
 
+# Gun overheat
+signal red_overheated
+signal un_red_overheated
+signal overheat
+signal cooling
+var overheat_var = 0
+var overheated = false
+var current_overheat = overheat_var
+
 signal player_upgrade
 
 var year = 41
@@ -46,12 +55,21 @@ func _ready() -> void:
 	Spitfire_animation.play()
 	Spitfire_animation_right.play()
 	Spitfire_animation_left.play()
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	print(player_health)
+
+	# Health
+	if player_health > 100:
+		player_health = 100
+		player_damaged.emit()
+	
+	# Turn
 	right = false
 	left = false
 	right_left = false
+	
+	# Stats
 	if year == 40:
 		topspeed = 0
 	if year == 41:
@@ -65,6 +83,8 @@ func _process(delta: float) -> void:
 		topspeed = 0
 	if year == 45:
 		topspeed = 0
+	
+	# Movements
 	if Input.is_action_pressed("player_decc") and position.y < 848:
 		position.y += acc_speed * 3
 	if Input.is_action_pressed("player_acc") and position.y > topspeed:
@@ -84,22 +104,26 @@ func _process(delta: float) -> void:
 		# laser.position = position
 		# get_parent().add_child(laser)
 		# currentshoottime = 1
-	if Input.is_action_pressed("player_shoot") and currentshoottime > shoottime and right == false and left == false:
+	if Input.is_action_pressed("player_shoot") and overheated == false and currentshoottime > shoottime and right == false and left == false:
 		spawner_component.spawn(muzzle4.global_position)
 		spawner_component.spawn(muzzle5.global_position)
 		currentshoottime = 0.1
-	if Input.is_action_pressed("player_shoot") and currentshoottime > shoottime and right == true and left == false:
+		overheat.emit()
+	if Input.is_action_pressed("player_shoot") and overheated == false and currentshoottime > shoottime and right == true and left == false:
 		spawner_component.spawn(muzzle4_right.global_position)
 		spawner_component.spawn(muzzle5_right.global_position)
 		currentshoottime = 0.1
-	if Input.is_action_pressed("player_shoot") and currentshoottime > shoottime and right == false and left == true:
+		overheat.emit()
+	if Input.is_action_pressed("player_shoot") and overheated == false and currentshoottime > shoottime and right == false and left == true:
 		spawner_component.spawn(muzzle4_left.global_position)
 		spawner_component.spawn(muzzle5_left.global_position)
 		currentshoottime = 0.1
-	if Input.is_action_pressed("player_shoot") and currentshoottime > shoottime and right_left == true:
+		overheat.emit()
+	if Input.is_action_pressed("player_shoot") and overheated == false and currentshoottime > shoottime and right_left == true:
 		spawner_component.spawn(muzzle4.global_position)
 		spawner_component.spawn(muzzle5.global_position)
 		currentshoottime = 0.1
+		overheat.emit()
 	if right_left == true:
 		Spitfire_animation.show()
 		Spitfire_animation_right.hide()
@@ -133,6 +157,14 @@ func _process(delta: float) -> void:
 	if player_health <= 0:
 		queue_free()
 		player_killed.emit()
+	
+	# Overheat
+	if overheat_var >= 100:
+		overheated = true
+	print(overheat_var)
+	print(overheated)
+	
+
 
 func _on_area_entered(area: Area2D) -> void:
 	if area is enemylaser:
@@ -160,3 +192,37 @@ func _on_player_killed() -> void:
 
 func _on_player_damaged() -> void:
 	current_health = player_health
+
+
+func _on_regen_timer_timeout() -> void:
+	print('regened')
+	if player_health < 100:
+		player_health += 10
+		player_damaged.emit()
+	if player_health >= 100:
+		pass
+
+
+func _on_overheat() -> void:
+	current_overheat = overheat_var
+	overheat_var += 5
+	await get_tree().create_timer(2.5).timeout
+	if overheat_var > 0 and overheat_var < 100 and overheated != true:
+		for i in range(1):
+			overheat_var -= 5
+			cooling.emit()
+	if overheat_var > 0 and overheat_var >= 100:
+		red_overheated.emit()
+		await get_tree().create_timer(3).timeout
+		un_red_overheated.emit()
+		for i in range(1):
+			overheat_var -= 5
+			cooling.emit()
+		await get_tree().create_timer(2).timeout
+		overheated = false
+
+
+
+
+func _on_cooling() -> void:
+	current_overheat = overheat_var
