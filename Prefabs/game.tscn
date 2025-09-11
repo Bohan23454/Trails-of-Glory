@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://dt61mx5v8mxvg" path="res://Prefabs/player.tscn" id="2_6bh61"]
 [ext_resource type="Texture2D" uid="uid://1mjlxvw6notp" path="res://skins/healbar player/Health bar 0.svg" id="2_qepiu"]
 [ext_resource type="Texture2D" uid="uid://c6h36lkbqaich" path="res://skins/healbar player/Health bar_player.svg" id="3_xfscx"]
-[ext_resource type="Script" uid="uid://bbcb3rmalmitt" path="res://player_health_bar.gd" id="4_xfscx"]
+[ext_resource type="Script" uid="uid://bbcb3rmalmitt" path="res://Scripts/player_health_bar.gd" id="4_xfscx"]
 [ext_resource type="Texture2D" uid="uid://bl6vsdpunabuy" path="res://skins/healbar player/overheatcirclebar.svg" id="5_ml5ix"]
 [ext_resource type="Texture2D" uid="uid://gbj4u3m2pq8t" path="res://skins/healbar player/overheatcirclebar1.svg" id="6_iv821"]
 [ext_resource type="Script" uid="uid://dbwtfpdu1df7x" path="res://Scripts/player_overheat_bar.gd" id="6_ml5ix"]

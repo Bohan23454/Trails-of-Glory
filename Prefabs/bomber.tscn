@@ -1,0 +1,43 @@
+[gd_scene load_steps=8 format=3 uid="uid://c221qg7c4sp4b"]
+
+[ext_resource type="Script" uid="uid://dth0sae70rxlk" path="res://Scripts/bomber.gd" id="1_f5dho"]
+[ext_resource type="Texture2D" uid="uid://cyqgni5kohomb" path="res://skins/He111/He111 1.svg" id="2_7ax50"]
+[ext_resource type="Texture2D" uid="uid://37nfuwe603ec" path="res://skins/He111/He111 2.svg" id="3_ju4hd"]
+[ext_resource type="Texture2D" uid="uid://cuu5o83nr7kc3" path="res://skins/He111/He111 3.svg" id="4_ifrhy"]
+[ext_resource type="Texture2D" uid="uid://bthipl2iwdixf" path="res://skins/He111/He111 4.svg" id="5_3ipuv"]
+[ext_resource type="Texture2D" uid="uid://c13htaiwoqoi4" path="res://skins/He111/He111 5.svg" id="6_hvwrx"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_xlgmg"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_7ax50")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_ju4hd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_ifrhy")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_3ipuv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_hvwrx")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Bomber" type="Node2D"]
+script = ExtResource("1_f5dho")
+
+[node name="bomberarea" type="Area2D" parent="."]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="bomberarea"]
+scale = Vector2(0.3, 0.3)
+sprite_frames = SubResource("SpriteFrames_xlgmg")
+frame_progress = 0.822333
+speed_scale = 50.0
+offset = Vector2(-8, 197)
