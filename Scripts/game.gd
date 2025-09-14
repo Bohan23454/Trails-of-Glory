@@ -11,6 +11,8 @@ var score = 0
 var cannonupgradefactor = 0
 var pause = false
 var boss_spawned = 0
+@onready var player = $Player
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -37,7 +39,7 @@ func _process(delta: float) -> void:
 		boss.boss_killed.connect(_on_boss_killed)
 		add_child(boss)
 		boss_spawned += 1
-
+ 
 func _on_enemy_timer_timeout():
 	for i in range(2):
 		var enemy_x = randi_range(-32, 32)

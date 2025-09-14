@@ -38,6 +38,6 @@ script = ExtResource("1_f5dho")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="bomberarea"]
 scale = Vector2(0.3, 0.3)
 sprite_frames = SubResource("SpriteFrames_xlgmg")
-frame_progress = 0.822333
+frame_progress = 0.124583
 speed_scale = 50.0
 offset = Vector2(-8, 197)

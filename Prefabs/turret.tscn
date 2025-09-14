@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://c3ytwakjkt8hc"]
+
+[ext_resource type="Script" uid="uid://d38duovr38xvl" path="res://Scripts/turret.gd" id="1_ru586"]
+[ext_resource type="Texture2D" uid="uid://bgrhdniof3kxs" path="res://skins/turret.svg" id="2_a38va"]
+
+[node name="Turret" type="Node2D"]
+script = ExtResource("1_ru586")
+
+[node name="Turret" type="Sprite2D" parent="."]
+texture = ExtResource("2_a38va")
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+target_position = Vector2(0, 250)
+collide_with_areas = true
