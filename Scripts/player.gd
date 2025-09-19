@@ -50,15 +50,25 @@ var currentshoottime = 0
 var upgradetimes = 0
 var laser_speed = 25
 
+var player_global_position: Vector2
+signal position_changed(global_position: Vector2)
+var last_pos: Vector2
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	GameManager.player = self
 	Spitfire_animation.play()
 	Spitfire_animation_right.play()
 	Spitfire_animation_left.play()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-
+	
+	if global_position != last_pos:
+		last_pos = global_position
+		emit_signal("position_changed", global_position)
+	player_global_position = global_position
+	
 	# Health
 	if player_health > 100:
 		player_health = 100
@@ -161,8 +171,7 @@ func _process(delta: float) -> void:
 	# Overheat
 	if overheat_var >= 100:
 		overheated = true
-	print(overheat_var)
-	print(overheated)
+
 	
 
 

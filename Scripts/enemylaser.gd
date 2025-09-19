@@ -2,11 +2,12 @@ extends Area2D
 
 class_name enemylaser
 
-@export var speed = 12
+@export var speed = 10
 @onready var die_timer = $Enemy_laser_die_timer
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	$AnimatedSprite2D.play()
 	die_timer.start()
 
 

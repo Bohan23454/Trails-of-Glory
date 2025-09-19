@@ -1,14 +1,23 @@
-[gd_scene load_steps=3 format=3 uid="uid://c3ytwakjkt8hc"]
+[gd_scene load_steps=4 format=3 uid="uid://c3ytwakjkt8hc"]
 
 [ext_resource type="Script" uid="uid://d38duovr38xvl" path="res://Scripts/turret.gd" id="1_ru586"]
-[ext_resource type="Texture2D" uid="uid://bgrhdniof3kxs" path="res://skins/turret.svg" id="2_a38va"]
+[ext_resource type="Texture2D" uid="uid://bgrhdniof3kxs" path="res://skins/He111/turret.svg" id="2_a38va"]
+[ext_resource type="PackedScene" uid="uid://bxiyvy2tbhocy" path="res://Prefabs/bomber_spawner_component.tscn" id="3_a38va"]
 
 [node name="Turret" type="Node2D"]
 script = ExtResource("1_ru586")
 
 [node name="Turret" type="Sprite2D" parent="."]
+rotation = -1.57085
 texture = ExtResource("2_a38va")
 
-[node name="RayCast2D" type="RayCast2D" parent="."]
-target_position = Vector2(0, 250)
-collide_with_areas = true
+[node name="Muzzle" type="Marker2D" parent="."]
+position = Vector2(89, 0)
+
+[node name="BomberSpawnerComponent" parent="." instance=ExtResource("3_a38va")]
+
+[node name="Turretshoottimer" type="Timer" parent="."]
+wait_time = 4.0
+autostart = true
+
+[connection signal="timeout" from="Turretshoottimer" to="." method="_on_turretshoottimer_timeout"]

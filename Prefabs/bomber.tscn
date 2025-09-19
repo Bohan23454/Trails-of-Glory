@@ -1,11 +1,22 @@
-[gd_scene load_steps=8 format=3 uid="uid://c221qg7c4sp4b"]
+[gd_scene load_steps=14 format=3 uid="uid://c221qg7c4sp4b"]
 
 [ext_resource type="Script" uid="uid://dth0sae70rxlk" path="res://Scripts/bomber.gd" id="1_f5dho"]
 [ext_resource type="Texture2D" uid="uid://cyqgni5kohomb" path="res://skins/He111/He111 1.svg" id="2_7ax50"]
+[ext_resource type="Script" uid="uid://bqhoyalr2petx" path="res://Scripts/bomberarea.gd" id="2_ju4hd"]
 [ext_resource type="Texture2D" uid="uid://37nfuwe603ec" path="res://skins/He111/He111 2.svg" id="3_ju4hd"]
 [ext_resource type="Texture2D" uid="uid://cuu5o83nr7kc3" path="res://skins/He111/He111 3.svg" id="4_ifrhy"]
 [ext_resource type="Texture2D" uid="uid://bthipl2iwdixf" path="res://skins/He111/He111 4.svg" id="5_3ipuv"]
 [ext_resource type="Texture2D" uid="uid://c13htaiwoqoi4" path="res://skins/He111/He111 5.svg" id="6_hvwrx"]
+[ext_resource type="PackedScene" uid="uid://c3ytwakjkt8hc" path="res://Prefabs/turret.tscn" id="7_7ax50"]
+[ext_resource type="Texture2D" uid="uid://ckafm27yi54uv" path="res://skins/healbar player/Enemy_health_bar.svg" id="9_hvwrx"]
+[ext_resource type="Texture2D" uid="uid://c6h36lkbqaich" path="res://skins/healbar player/Health bar_player.svg" id="10_xlgmg"]
+[ext_resource type="Script" uid="uid://dqix164lt7cc3" path="res://Scripts/bomber_health_bar.gd" id="11_cioxt"]
+
+[sub_resource type="Curve2D" id="Curve2D_7ax50"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 677, 330, 96.0664, 6.79226, -96.0664, -6.79226, 404.987, 322.463, 81.2685, 23.9021, -81.2685, -23.9021, 186.713, 285.458, 22.0104, 16.4294, -22.0104, -16.4294, 44.5457, 226.105, 16.7424, 41.1102, -16.7424, -41.1102, -10.4256, 146.026, 3.01052, 29.8825, -3.01052, -29.8825, -41.7024, 32.9737, 0, 0, 0, 0, -45.4935, -30.1474, 0, 0, 0, 0, -45.4935, -68.7737)
+}
+point_count = 8
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_xlgmg"]
 animations = [{
@@ -33,11 +44,58 @@ animations = [{
 [node name="Bomber" type="Node2D"]
 script = ExtResource("1_f5dho")
 
-[node name="bomberarea" type="Area2D" parent="."]
+[node name="Path2D" type="Path2D" parent="."]
+position = Vector2(386, 221)
+scale = Vector2(1.0551, 1.06145)
+curve = SubResource("Curve2D_7ax50")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="bomberarea"]
+[node name="PathFollow2D" type="PathFollow2D" parent="Path2D"]
+position = Vector2(677, 330)
+rotation = -3.11389
+loop = false
+
+[node name="bomberarea" type="Area2D" parent="Path2D/PathFollow2D"]
+rotation = 1.5708
+script = ExtResource("2_ju4hd")
+
+[node name="bomber_animation" type="AnimatedSprite2D" parent="Path2D/PathFollow2D/bomberarea"]
 scale = Vector2(0.3, 0.3)
 sprite_frames = SubResource("SpriteFrames_xlgmg")
-frame_progress = 0.124583
-speed_scale = 50.0
+frame_progress = 0.931398
+speed_scale = 10.0
 offset = Vector2(-8, 197)
+
+[node name="Turret" parent="Path2D/PathFollow2D/bomberarea" node_paths=PackedStringArray("bomber") instance=ExtResource("7_7ax50")]
+scale = Vector2(0.3, 0.3)
+bomber = NodePath("../../../..")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Path2D/PathFollow2D/bomberarea"]
+polygon = PackedVector2Array(-16, -61, -32, -61, -32, -75, -39, -91, -44, -91, -51, -75, -51, -61, -172, -26, -178, -12, -176, 1, -166, 12, -48, 24, -22, 15, -17, 23, -16, 64, -9, 118, -36, 121, -50, 127, -60, 134, -63, 142, -60, 149, -50, 155, -33, 160, -3, 162, 0, 170, 3, 162, 33, 159, 51, 154, 60, 149, 63, 141, 60, 134, 49, 126, 37, 121, 9, 118, 15, 65, 17, 21, 22, 15, 50, 24, 166, 12, 175, 1, 178, -12, 171, -26, 51, -61, 51, -74, 43, -91, 39, -91, 31, -74, 30.7474, -61, 16, -61, 15, -76, 11, -88, 8, -93, 0, -94, -6, -88, -12, -76)
+
+[node name="Label" type="Label" parent="Path2D/PathFollow2D/bomberarea"]
+offset_left = -205.901
+offset_top = 37.5504
+offset_right = 549.965
+offset_bottom = 191.971
+scale = Vector2(0.15, 0.15)
+
+[node name="bomber_health_bar" type="TextureProgressBar" parent="Path2D/PathFollow2D/bomberarea/Label"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.358
+anchor_right = 0.358
+offset_left = 24.9379
+offset_top = 80.8912
+offset_right = 780.938
+offset_bottom = 231.891
+texture_under = ExtResource("9_hvwrx")
+texture_progress = ExtResource("10_xlgmg")
+script = ExtResource("11_cioxt")
+
+[node name="start_timer" type="Timer" parent="."]
+wait_time = 10.0
+one_shot = true
+autostart = true
+
+[connection signal="area_entered" from="Path2D/PathFollow2D/bomberarea" to="." method="_on_bomberarea_area_entered"]
+[connection signal="timeout" from="start_timer" to="." method="_on_start_timer_timeout"]

@@ -103,9 +103,8 @@ position = Vector2(-8.38392e-07, 6.59546e-07)
 scale = Vector2(0.503778, 0.503779)
 sprite_frames = SubResource("SpriteFrames_2xbkd")
 autoplay = "default"
-frame = 1
-frame_progress = 0.198792
-speed_scale = 50.0
+frame_progress = 0.63943
+speed_scale = 10.0
 
 [node name="Spitfire_hitbox" type="CollisionPolygon2D" parent="."]
 position = Vector2(-16, 8)
@@ -124,7 +123,7 @@ visible = false
 scale = Vector2(0.504, 0.504)
 sprite_frames = SubResource("SpriteFrames_0fs2y")
 frame_progress = 0.81164
-speed_scale = 50.0
+speed_scale = 10.0
 offset = Vector2(-4.13359, 12.4008)
 
 [node name="Spitfire_hitbox_right" type="CollisionPolygon2D" parent="."]
@@ -155,7 +154,7 @@ z_index = -2
 scale = Vector2(0.504, 0.504)
 sprite_frames = SubResource("SpriteFrames_qvmbc")
 frame_progress = 0.34675
-speed_scale = 50.0
+speed_scale = 10.0
 offset = Vector2(-4.13359, 12.4008)
 
 [node name="Spitfire_hitbox_left" type="CollisionPolygon2D" parent="."]

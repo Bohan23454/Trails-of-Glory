@@ -1,26 +1,31 @@
 extends Node2D
 
+class_name main
+
 #https://www.youtube.com/watch?v=UEJcUnq2dfU
 
 @onready var enemy_prefab = preload("res://Prefabs/enemy.tscn")
 @onready var boss_prefab = preload("res://Prefabs/boss.tscn")
 @onready var Upgradecannon_prefab = preload("res://Prefabs/upgradecannon.tscn")
 @onready var Upgradebullet_prefab = preload("res://Prefabs/bulletupgrade.tscn")
+@onready var bomber_prefab = preload('res://Prefabs/bomber.tscn')
 
 var score = 0
 var cannonupgradefactor = 0
 var pause = false
-var boss_spawned = 0
-@onready var player = $Player
+var bomber_spawned = 0
+
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	_update_ui()
 	$PauseMenu.hide()
+	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
+
 	if Input.is_action_just_pressed("player_pause") and pause == true:
 		get_tree().paused = false
 		$PauseMenu.hide()
@@ -31,14 +36,13 @@ func _process(delta: float) -> void:
 		$PauseMenu.show()
 		pause = true
 	if score % 2 != 0:
-		boss_spawned = 0
-	if score % 100 == 0 and score != 0 and boss_spawned == 0:
-		var boss = boss_prefab.instantiate()
-		var random_y = randi_range(30, 610)
-		boss.position = Vector2(1300, random_y)
-		boss.boss_killed.connect(_on_boss_killed)
-		add_child(boss)
-		boss_spawned += 1
+		bomber_spawned = 0
+	if score % 100 == 0 and score != 0 and bomber_spawned == 0:
+		var bomber = bomber_prefab.instantiate()
+		bomber.position = Vector2(0, 0)
+		bomber.bomber_killed.connect(_on_bomber_killed)
+		add_child(bomber)
+		bomber_spawned += 1
  
 func _on_enemy_timer_timeout():
 	for i in range(2):
@@ -89,14 +93,14 @@ func _on_boss_killed():
 	
 func _on_enemy_killed(enemyposition):
 	var r = randi_range(1, 20)
-	if r == 1:
-		var upgradecannon = Upgradecannon_prefab.instantiate()
-		upgradecannon.position = enemyposition
-		add_child(upgradecannon)
-	if r == 20:
-		var upgradebullet = Upgradebullet_prefab.instantiate()
-		upgradebullet.position = enemyposition
-		add_child(upgradebullet)
+	#if r == 1:
+		#var upgradecannon = Upgradecannon_prefab.instantiate()
+		#upgradecannon.position = enemyposition
+		#add_child(upgradecannon)
+	#if r == 20:
+		#var upgradebullet = Upgradebullet_prefab.instantiate()
+		#upgradebullet.position = enemyposition
+		#add_child(upgradebullet)
 	score += 1
 	_update_ui()
 
@@ -115,3 +119,8 @@ func _on_reset_button_pressed() -> void:
 	pause = false
 	$PauseMenu.hide()
 	get_tree().reload_current_scene()
+
+
+func _on_bomber_killed() -> void:
+	score += 10
+	_update_ui()

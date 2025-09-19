@@ -1,19 +1,19 @@
 [gd_scene load_steps=11 format=3 uid="uid://busb6u82gpygg"]
 
 [ext_resource type="Script" uid="uid://c3m5kxexw0wf2" path="res://Scripts/enemy.gd" id="1_80imi"]
-[ext_resource type="Texture2D" uid="uid://bhpuh7qftn1lx" path="res://skins/Bf109E/Bf109E 1.svg" id="1_x8ovi"]
-[ext_resource type="Texture2D" uid="uid://d2cboy70dg3n5" path="res://skins/Bf109E/Bf109E 2.svg" id="2_eb2bm"]
+[ext_resource type="Texture2D" uid="uid://bhpuh7qftn1lx" path="res://skins/BF109E/Bf109E 1.svg" id="1_x8ovi"]
+[ext_resource type="Texture2D" uid="uid://d2cboy70dg3n5" path="res://skins/BF109E/Bf109E 2.svg" id="2_eb2bm"]
 [ext_resource type="Script" uid="uid://2evvoim4uohm" path="res://Scripts/enemyarea.gd" id="2_osttl"]
-[ext_resource type="Texture2D" uid="uid://dxfo411ff8rr2" path="res://skins/Bf109E/Bf109E 3.svg" id="3_t7urf"]
-[ext_resource type="Texture2D" uid="uid://bg2hafhggai3g" path="res://skins/Bf109E/Bf109E 4.svg" id="4_1fb5k"]
-[ext_resource type="Texture2D" uid="uid://bmcbik3kl8o5b" path="res://skins/Bf109E/Bf109E 5.svg" id="5_ok5fj"]
+[ext_resource type="Texture2D" uid="uid://dxfo411ff8rr2" path="res://skins/BF109E/Bf109E 3.svg" id="3_t7urf"]
+[ext_resource type="Texture2D" uid="uid://bg2hafhggai3g" path="res://skins/BF109E/Bf109E 4.svg" id="4_1fb5k"]
+[ext_resource type="Texture2D" uid="uid://bmcbik3kl8o5b" path="res://skins/BF109E/Bf109E 5.svg" id="5_ok5fj"]
 [ext_resource type="PackedScene" uid="uid://cppth4tjyfd" path="res://Prefabs/enemy_spawner_component.tscn" id="8_g7nnu"]
 
 [sub_resource type="Curve2D" id="Curve2D_80imi"]
 _data = {
-"points": PackedVector2Array(-5.5, -55, 5.5, 55, 0, -576, -22.7436, -81.235, 22.7436, 81.235, 32, 288, -67.8295, -46.581, 67.8295, 46.581, 136, 408, -64.7469, -46.1759, 64.7469, 46.1759, 248, 488, 0.540501, -96.2905, -0.540501, 96.2905, 344, 640, 15.7662, -18.6796, -15.7662, 18.6796, 312, 776, 75.4894, -48.7712, -75.4894, 48.7712, 192, 864, 91.6051, -51.3158, -91.6051, 51.3158, 88, 920, 80.5785, -50.8917, -80.5785, 50.8917, -16, 984, 85.6677, -44.1061, -85.6677, 44.1061, -144, 1056, 0, 0, 0, 0, -256, 1128)
+"points": PackedVector2Array(-0.0277729, -56.4518, 0.0277729, 56.4518, 0, -576, 0, 0, 0, 0, 0, -406, -22.7436, -81.235, 22.7436, 81.235, 32, 288, -67.8295, -46.581, 67.8295, 46.581, 136, 408, -64.7469, -46.1759, 64.7469, 46.1759, 248, 488, 0.540501, -96.2905, -0.540501, 96.2905, 344, 640, 15.7662, -18.6796, -15.7662, 18.6796, 314, 804, 40.4468, -7.88087, -40.4468, 7.88087, 193, 876, 42.3622, -23.9294, -42.3622, 23.9294, 75, 924, 80.5785, -50.8917, -80.5785, 50.8917, -16, 984, 85.6677, -44.1061, -85.6677, 44.1061, -144, 1056, 0, 0, 0, 0, -256, 1128)
 }
-point_count = 11
+point_count = 12
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_xk43f"]
 animations = [{
@@ -46,7 +46,7 @@ process_mode = 1
 script = ExtResource("1_80imi")
 
 [node name="enemylasertimer" type="Timer" parent="."]
-wait_time = 3.0
+wait_time = 4.0
 autostart = true
 
 [node name="Path2D" type="Path2D" parent="."]
@@ -54,7 +54,7 @@ curve = SubResource("Curve2D_80imi")
 
 [node name="PathFollow2D" type="PathFollow2D" parent="Path2D"]
 position = Vector2(0, -576)
-rotation = 1.47113
+rotation = 1.5703
 
 [node name="enemyarea" type="Area2D" parent="Path2D/PathFollow2D"]
 z_index = 1
@@ -65,14 +65,14 @@ script = ExtResource("2_osttl")
 position = Vector2(32, -1.43051e-06)
 rotation = 1.5708
 scale = Vector2(0.638151, 0.638153)
-polygon = PackedVector2Array(-16, -16, -125.362, -12.5356, -133.676, 22.2794, -12.536, 50.1448, -12.5359, 125.362, -33.4191, 133.676, -37.6083, 137.898, -37.6083, 150.434, -25.0721, 150.434, -12.5358, 150.434, 0.000413161, 162.97, 12.5366, 150.434, 25.0728, 150.434, 37.609, 150.434, 37.609, 137.898, 33.4191, 133.676, 12.5365, 125.362, 12.5364, 50.1446, 133.676, 22.2794, 125.362, -12.5367, 16, -16, 8, -64, -8, -64)
+polygon = PackedVector2Array(-12.5044, -14.6316, -123.245, -6.32825, -127.443, 1.70471, -125.364, 22.9104, -12.533, 43.8706, -4.21528, 125.36, -35.5589, 131.613, -37.6083, 137.898, -37.6554, 146.237, -33.4787, 150.418, -25.0721, 150.434, -6.31792, 152.521, -2.13612, 146.255, -2.1402, 154.612, 0.000413161, 162.97, 2.03854, 154.614, 2.04262, 146.256, 6.2183, 152.527, 25.0728, 150.434, 33.3811, 150.451, 37.5619, 146.274, 37.609, 137.898, 35.4797, 131.647, 4.14219, 125.364, 12.5395, 43.8828, 124.532, 22.7017, 128.69, 2.11951, 123.301, -6.20789, 12.568, -14.6194, 12.5823, -43.8705, 4.23402, -62.6787, -4.12346, -62.6829, -12.4901, -43.8827)
 
 [node name="enemy_animation" type="AnimatedSprite2D" parent="Path2D/PathFollow2D/enemyarea"]
 rotation = 1.5708
 scale = Vector2(0.253714, 0.253745)
 sprite_frames = SubResource("SpriteFrames_xk43f")
-frame_progress = 0.386505
-speed_scale = 50.0
+frame_progress = 0.481509
+speed_scale = 10.0
 
 [node name="Muzzle 1" type="Marker2D" parent="Path2D/PathFollow2D/enemyarea"]
 position = Vector2(39.661, 32.4193)
@@ -82,6 +82,12 @@ position = Vector2(40.3346, -31.5772)
 
 [node name="EnemySpawnerComponent" parent="Path2D/PathFollow2D/enemyarea" instance=ExtResource("8_g7nnu")]
 
+[node name="enemy_die_timer" type="Timer" parent="."]
+wait_time = 30.0
+one_shot = true
+autostart = true
+
 [connection signal="enemy_killed" from="." to="." method="_on_enemy_killed"]
 [connection signal="timeout" from="enemylasertimer" to="." method="_on_enemylasertimer_timeout"]
 [connection signal="area_entered" from="Path2D/PathFollow2D/enemyarea" to="." method="_on_enemyarea_area_entered"]
+[connection signal="timeout" from="enemy_die_timer" to="." method="_on_enemy_die_timer_timeout"]
