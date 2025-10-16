@@ -12,10 +12,9 @@ class_name main
 
 var score = 0
 var cannonupgradefactor = 0
-var pause = false
 var bomber_spawned = 0
 
-
+# Complete the pause menu thing and I hove you have a great result in math, cheers
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -25,16 +24,12 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-
-	if Input.is_action_just_pressed("player_pause") and pause == true:
-		get_tree().paused = false
+	
+	if PauseManager.pause == false:
 		$PauseMenu.hide()
-		await get_tree().create_timer(0.5).timeout
-		pause = false
-	if Input.is_action_just_pressed("player_pause") and pause != true:
-		get_tree().paused = true
+	if PauseManager.pause == true:
 		$PauseMenu.show()
-		pause = true
+		
 	if score % 2 != 0:
 		bomber_spawned = 0
 	if score % 100 == 0 and score != 0 and bomber_spawned == 0:
@@ -43,7 +38,9 @@ func _process(delta: float) -> void:
 		bomber.bomber_killed.connect(_on_bomber_killed)
 		add_child(bomber)
 		bomber_spawned += 1
- 
+		
+
+		
 func _on_enemy_timer_timeout():
 	for i in range(2):
 		var enemy_x = randi_range(-32, 32)
@@ -111,12 +108,12 @@ func _on_unpause_button_pressed() -> void:
 	get_tree().paused = false
 	$PauseMenu.hide()
 	await get_tree().create_timer(0.5).timeout
-	pause = false
+	PauseManager.pause = false
 
 func _on_reset_button_pressed() -> void:
 	get_tree().paused = false
 	await get_tree().create_timer(0.05).timeout
-	pause = false
+	PauseManager.pause = false
 	$PauseMenu.hide()
 	get_tree().reload_current_scene()
 

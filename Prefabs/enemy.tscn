@@ -46,6 +46,7 @@ process_mode = 1
 script = ExtResource("1_80imi")
 
 [node name="enemylasertimer" type="Timer" parent="."]
+process_mode = 1
 wait_time = 4.0
 autostart = true
 
@@ -81,6 +82,7 @@ position = Vector2(39.661, 32.4193)
 position = Vector2(40.3346, -31.5772)
 
 [node name="EnemySpawnerComponent" parent="Path2D/PathFollow2D/enemyarea" instance=ExtResource("8_g7nnu")]
+process_mode = 1
 
 [node name="enemy_die_timer" type="Timer" parent="."]
 wait_time = 30.0

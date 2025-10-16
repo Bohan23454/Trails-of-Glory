@@ -3,6 +3,7 @@ extends Node2D
 signal enemy_killed
 
 @export var speed = 3
+@export var game = main
 
 @onready var enemylaser_prefab = preload("res://Prefabs/enemylaser.tscn")
 @onready var enemy_animation = $Path2D/PathFollow2D/enemyarea/enemy_animation
@@ -16,6 +17,7 @@ var spawn_timed = 0
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	enemy_animation.play()
+
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
