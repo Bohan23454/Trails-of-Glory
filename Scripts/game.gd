@@ -107,7 +107,7 @@ func _on_restart_timer_timeout() -> void:
 func _on_unpause_button_pressed() -> void:
 	get_tree().paused = false
 	$PauseMenu.hide()
-	await get_tree().create_timer(0.5).timeout
+	await get_tree().create_timer(0.05).timeout
 	PauseManager.pause = false
 
 func _on_reset_button_pressed() -> void:

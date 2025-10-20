@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://bqu6nx6bhrjjn"]
+[gd_scene load_steps=24 format=3 uid="uid://bqu6nx6bhrjjn"]
 
 [ext_resource type="Script" uid="uid://b8mx762ql6ijg" path="res://Scripts/game.gd" id="1_vc7v3"]
 [ext_resource type="PackedScene" uid="uid://dt61mx5v8mxvg" path="res://Prefabs/player.tscn" id="2_6bh61"]
@@ -13,6 +13,14 @@
 [ext_resource type="Texture2D" uid="uid://dhc6mu4jne8df" path="res://skins/menu/pausemenu.svg" id="10_ofweq"]
 [ext_resource type="Texture2D" uid="uid://blby8yjv3drm8" path="res://skins/menu/GU.svg" id="12_1osa2"]
 [ext_resource type="Texture2D" uid="uid://dkyal4tmmr2id" path="res://skins/menu/GU.grey.svg" id="12_a0u42"]
+[ext_resource type="Texture2D" uid="uid://bgtm874wg2kyu" path="res://skins/menu/GU.pressed.svg" id="13_e2cup"]
+[ext_resource type="Texture2D" uid="uid://bj1us6bsageyn" path="res://skins/menu/TA.svg" id="15_htkod"]
+[ext_resource type="Texture2D" uid="uid://vmqigs8he1rn" path="res://skins/menu/TA.grey.svg" id="16_13u8h"]
+[ext_resource type="Texture2D" uid="uid://ubcbf5gr2un2" path="res://skins/menu/TA.pressed.svg" id="17_6qak4"]
+[ext_resource type="Texture2D" uid="uid://cd83voxr0giq4" path="res://skins/menu/CO.svg" id="18_lqbga"]
+[ext_resource type="Texture2D" uid="uid://2e2akavqan8e" path="res://skins/menu/CO.pressed.svg" id="19_12lef"]
+[ext_resource type="Script" uid="uid://c0k0kq16teer0" path="res://Prefabs/canvas_layer_pause.gd" id="20_12lef"]
+[ext_resource type="Texture2D" uid="uid://ck1v66e2h51nx" path="res://skins/menu/CO.grey.svg" id="20_n8gly"]
 
 [sub_resource type="FontFile" id="FontFile_feb5d"]
 cache/0/16/0/ascent = 0.0
@@ -47,7 +55,7 @@ wait_time = 6.0
 autostart = true
 
 [node name="Game_ui" type="Control" parent="."]
-z_index = 2
+z_index = 3
 custom_minimum_size = Vector2(700, 925)
 layout_mode = 3
 anchors_preset = 0
@@ -72,10 +80,11 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="CanvasLayer" type="CanvasLayer" parent="Game_ui"]
-layer = -1
+layer = 0
 
 [node name="player_health_bar" type="TextureProgressBar" parent="Game_ui/CanvasLayer" node_paths=PackedStringArray("player")]
 process_mode = 1
+z_index = 4
 offset_left = 11.0
 offset_top = 15.0
 offset_right = 767.0
@@ -88,6 +97,7 @@ player = NodePath("../../../Player")
 
 [node name="player_overheat_bar" type="TextureProgressBar" parent="Game_ui/CanvasLayer" node_paths=PackedStringArray("player")]
 process_mode = 1
+z_index = 4
 offset_left = 11.0
 offset_top = 66.0
 offset_right = 200.0
@@ -110,64 +120,68 @@ position = Vector2(336, 784)
 
 [node name="PauseMenu" type="Control" parent="."]
 process_mode = 3
-z_index = 2
+visible = false
+z_index = 5
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 script = ExtResource("10_1osa2")
 
-[node name="PanelContainer4" type="PanelContainer" parent="PauseMenu"]
-layout_mode = 2
+[node name="LeaveButton" type="TextureButton" parent="PauseMenu"]
+layout_mode = 0
+offset_left = 198.0
+offset_top = 259.0
+offset_right = 670.0
+offset_bottom = 372.0
+scale = Vector2(0.655, 0.655)
+texture_normal = ExtResource("12_1osa2")
+texture_pressed = ExtResource("13_e2cup")
+texture_hover = ExtResource("12_a0u42")
+
+[node name="ResetButton" type="TextureButton" parent="PauseMenu"]
+layout_mode = 0
+offset_left = 230.0
+offset_top = 397.0
+offset_right = 597.0
+offset_bottom = 635.0
+scale = Vector2(0.655421, 0.655421)
+texture_normal = ExtResource("15_htkod")
+texture_pressed = ExtResource("17_6qak4")
+texture_hover = ExtResource("16_13u8h")
+
+[node name="UnpauseButton" type="TextureButton" parent="PauseMenu"]
+layout_mode = 0
+offset_left = 253.0
+offset_top = 626.0
+offset_right = 563.0
+offset_bottom = 849.0
+scale = Vector2(0.655, 0.655)
+texture_normal = ExtResource("18_lqbga")
+texture_pressed = ExtResource("19_12lef")
+texture_hover = ExtResource("20_n8gly")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="PauseMenu"]
+visible = false
+script = ExtResource("20_12lef")
+
+[node name="ColorRect" type="ColorRect" parent="PauseMenu/CanvasLayer"]
+light_mask = 33
+z_index = -1
 offset_right = 700.0
 offset_bottom = 925.0
+color = Color(1, 1, 1, 0.32549)
 
-[node name="Pausemenu" type="Sprite2D" parent="PauseMenu/PanelContainer4"]
+[node name="Pausemenu" type="Sprite2D" parent="PauseMenu/CanvasLayer"]
 position = Vector2(350, 450)
 scale = Vector2(0.709656, 0.709656)
 texture = ExtResource("10_ofweq")
-
-[node name="ColorRect" type="ColorRect" parent="PauseMenu/PanelContainer4"]
-light_mask = 33
-z_index = -1
-layout_mode = 2
-color = Color(1, 1, 1, 0.32549)
-
-[node name="UnpauseButton" type="Button" parent="PauseMenu"]
-process_mode = 3
-z_index = 1
-layout_mode = 2
-offset_left = 276.0
-offset_top = 650.0
-offset_right = 400.0
-offset_bottom = 681.0
-action_mode = 0
-text = "Pause"
-
-[node name="ResetButton" type="Button" parent="PauseMenu"]
-process_mode = 3
-offset_left = 275.0
-offset_top = 462.0
-offset_right = 422.0
-offset_bottom = 524.0
-action_mode = 0
-text = "Reset"
-
-[node name="LeaveButton" type="TextureButton" parent="PauseMenu"]
-layout_mode = 0
-offset_left = 120.0
-offset_top = 210.0
-offset_right = 592.0
-offset_bottom = 399.0
-texture_normal = ExtResource("12_1osa2")
-texture_pressed = ExtResource("12_a0u42")
-texture_hover = ExtResource("12_a0u42")
 
 [connection signal="timeout" from="EnemyTimer" to="." method="_on_enemy_timer_timeout"]
 [connection signal="timeout" from="EnemyTimer2" to="." method="_on_enemy_timer_2_timeout"]
 [connection signal="timeout" from="EnemyTimer3" to="." method="_on_enemy_timer_3_timeout"]
 [connection signal="timeout" from="RestartTimer" to="." method="_on_restart_timer_timeout"]
 [connection signal="timeout" from="EnemyTimer4" to="." method="_on_enemy_timer_4_timeout"]
-[connection signal="pressed" from="PauseMenu/UnpauseButton" to="." method="_on_unpause_button_pressed"]
-[connection signal="pressed" from="PauseMenu/ResetButton" to="." method="_on_reset_button_pressed"]
 [connection signal="pressed" from="PauseMenu/LeaveButton" to="PauseMenu" method="_on_leave_button_pressed"]
+[connection signal="pressed" from="PauseMenu/ResetButton" to="." method="_on_reset_button_pressed"]
+[connection signal="pressed" from="PauseMenu/UnpauseButton" to="." method="_on_unpause_button_pressed"]
