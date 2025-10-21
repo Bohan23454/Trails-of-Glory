@@ -1,0 +1,29 @@
+[gd_scene load_steps=3 format=3 uid="uid://bmailb8s2vlgr"]
+
+[ext_resource type="Script" uid="uid://dthw5xpb4454p" path="res://Scripts/start_menu.gd" id="1_1sdev"]
+[ext_resource type="Texture2D" uid="uid://dwp1ymt06joty" path="res://skins/Trails_of_Glory_logo.svg" id="2_yhmfs"]
+
+[node name="Start menu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_1sdev")
+
+[node name="TrailsOfGloryLogo" type="Sprite2D" parent="."]
+position = Vector2(354, 201)
+scale = Vector2(0.409758, 0.409758)
+texture = ExtResource("2_yhmfs")
+
+[node name="Start" type="Button" parent="."]
+layout_mode = 0
+offset_left = 238.0
+offset_top = 334.0
+offset_right = 450.0
+offset_bottom = 392.0
+text = "start
+"
+
+[connection signal="pressed" from="Start" to="." method="_on_start_pressed"]
