@@ -13,6 +13,7 @@ class_name main
 var score = 0
 var cannonupgradefactor = 0
 var bomber_spawned = 0
+var bomberthere = false
 
 # Complete the pause menu thing and I hove you have a great result in math, cheers
 
@@ -28,11 +29,13 @@ func _process(delta: float) -> void:
 	if PauseManager.pause == false:
 		$PauseMenu.hide()
 	if PauseManager.pause == true:
+		$Pausesound.play()
 		$PauseMenu.show()
 		
 	if score % 2 != 0:
 		bomber_spawned = 0
 	if score % 100 == 0 and score != 0 and bomber_spawned == 0:
+		bomberthere = true
 		var bomber = bomber_prefab.instantiate()
 		bomber.position = Vector2(0, 0)
 		bomber.bomber_killed.connect(_on_bomber_killed)
@@ -42,34 +45,37 @@ func _process(delta: float) -> void:
 
 		
 func _on_enemy_timer_timeout():
-	for i in range(2):
-		var enemy_x = randi_range(-32, 32)
-		var enemy_po1 = 128 + enemy_x
-		var enemy_po2 = 296 + enemy_x
-		var enemy_po3 = 464 + enemy_x
-		var enemy_po4 = 592 + enemy_x
-		#Leader's wingman
-		var enemy = enemy_prefab.instantiate()
-		#var random_x = randi_range(, 610)
-		enemy.position = Vector2(enemy_po1, 0)
-		enemy.enemy_killed.connect(_on_enemy_killed)
-		add_child(enemy)
-		#Flying leader
-		enemy = enemy_prefab.instantiate()
-		enemy.position = Vector2(enemy_po2, 144)
-		enemy.enemy_killed.connect(_on_enemy_killed)
-		add_child(enemy)
-		#Leader of the second pair
-		enemy = enemy_prefab.instantiate()
-		enemy.position = Vector2(enemy_po3, 0)
-		enemy.enemy_killed.connect(_on_enemy_killed)
-		add_child(enemy)
-		#Second leader's wing man
-		enemy = enemy_prefab.instantiate()
-		enemy.position = Vector2(enemy_po4, -144)
-		enemy.enemy_killed.connect(_on_enemy_killed)
-		add_child(enemy)
-		await get_tree().create_timer(2.0).timeout
+	if bomberthere == true:
+		pass
+	else:	
+		for i in range(2):
+			var enemy_x = randi_range(-32, 32)
+			var enemy_po1 = 128 + enemy_x
+			var enemy_po2 = 296 + enemy_x
+			var enemy_po3 = 464 + enemy_x
+			var enemy_po4 = 592 + enemy_x
+			#Leader's wingman
+			var enemy = enemy_prefab.instantiate()
+			#var random_x = randi_range(, 610)
+			enemy.position = Vector2(enemy_po1, 0)
+			enemy.enemy_killed.connect(_on_enemy_killed)
+			add_child(enemy)
+			#Flying leader
+			enemy = enemy_prefab.instantiate()
+			enemy.position = Vector2(enemy_po2, 144)
+			enemy.enemy_killed.connect(_on_enemy_killed)
+			add_child(enemy)
+			#Leader of the second pair
+			enemy = enemy_prefab.instantiate()
+			enemy.position = Vector2(enemy_po3, 0)
+			enemy.enemy_killed.connect(_on_enemy_killed)
+			add_child(enemy)
+			#Second leader's wing man
+			enemy = enemy_prefab.instantiate()
+			enemy.position = Vector2(enemy_po4, -144)
+			enemy.enemy_killed.connect(_on_enemy_killed)
+			add_child(enemy)
+			await get_tree().create_timer(2.0).timeout
 
 #func _on_enemy_timer_2_timeout() -> void:
 	#if score > 50:
@@ -98,6 +104,7 @@ func _on_enemy_killed(enemyposition):
 		#var upgradebullet = Upgradebullet_prefab.instantiate()
 		#upgradebullet.position = enemyposition
 		#add_child(upgradebullet)
+	$explode.play()
 	score += 1
 	_update_ui()
 
@@ -119,5 +126,7 @@ func _on_reset_button_pressed() -> void:
 
 
 func _on_bomber_killed() -> void:
+	bomberthere = false
+	$bigexplode.play()
 	score += 10
 	_update_ui()

@@ -19,6 +19,7 @@ func _process(_delta: float) -> void:
 
 	if Input.is_action_just_pressed("player_pause") and PauseManager.pause == false:
 		
+
 		PauseManager.pause = true
 		await get_tree().create_timer(0.1).timeout
 		get_tree().paused = true

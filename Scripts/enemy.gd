@@ -34,12 +34,15 @@ func _on_enemylasertimer_timeout():
 		pass
 	enemy_spawner_component.spawn(muzzle1.global_position, muzzle1.global_rotation)
 	enemy_spawner_component.spawn(muzzle2.global_position, muzzle2.global_rotation)
+	$Enemyshoot.play()
 	await get_tree().create_timer(0.15).timeout
 	enemy_spawner_component.spawn(muzzle1.global_position, muzzle1.global_rotation)
 	enemy_spawner_component.spawn(muzzle2.global_position, muzzle2.global_rotation)
+	$Enemyshoot.play()
 	await get_tree().create_timer(0.15).timeout
 	enemy_spawner_component.spawn(muzzle1.global_position, muzzle1.global_rotation)
 	enemy_spawner_component.spawn(muzzle2.global_position, muzzle2.global_rotation)
+	$Enemyshoot.play()
 	await get_tree().create_timer(0.15).timeout
 
 func _on_enemyarea_area_entered(area: Area2D) -> void:

@@ -1,7 +1,16 @@
-[gd_scene load_steps=3 format=3 uid="uid://bmailb8s2vlgr"]
+[gd_scene load_steps=12 format=3 uid="uid://bmailb8s2vlgr"]
 
-[ext_resource type="Script" uid="uid://dthw5xpb4454p" path="res://Scripts/start_menu.gd" id="1_1sdev"]
+[ext_resource type="Script" path="res://Scripts/start_menu.gd" id="1_1sdev"]
 [ext_resource type="Texture2D" uid="uid://dwp1ymt06joty" path="res://skins/Trails_of_Glory_logo.svg" id="2_yhmfs"]
+[ext_resource type="Texture2D" uid="uid://mhjpefbc8tpb" path="res://skins/menu/Menu1.svg" id="3_lncsr"]
+[ext_resource type="Texture2D" uid="uid://c7vs2thw5o3br" path="res://skins/menu/Menu2.svg" id="4_7kohn"]
+[ext_resource type="Texture2D" uid="uid://bxv4r4g63cmqp" path="res://skins/menu/Menu2.grey.svg" id="5_5wcji"]
+[ext_resource type="Texture2D" uid="uid://cnjbunbb7x81n" path="res://skins/menu/Menu2.pressed.svg" id="5_7kohn"]
+[ext_resource type="Texture2D" uid="uid://dtvj7skset8db" path="res://skins/menu/Menu3.svg" id="7_3jsvh"]
+[ext_resource type="Texture2D" uid="uid://bbf5l5676wjgk" path="res://skins/menu/Menu3.pressed.svg" id="8_ppqbn"]
+[ext_resource type="Texture2D" uid="uid://cs4yrq2utuuv3" path="res://skins/menu/Menu3.grey.svg" id="9_wftrx"]
+[ext_resource type="Script" path="res://Scripts/parallax_background.gd" id="10_wftrx"]
+[ext_resource type="Texture2D" uid="uid://qulnk0hkadve" path="res://skins/coast.svg" id="11_yncyr"]
 
 [node name="Start menu" type="Control"]
 layout_mode = 3
@@ -13,17 +22,62 @@ grow_vertical = 2
 script = ExtResource("1_1sdev")
 
 [node name="TrailsOfGloryLogo" type="Sprite2D" parent="."]
-position = Vector2(354, 201)
+position = Vector2(350, 178)
 scale = Vector2(0.409758, 0.409758)
 texture = ExtResource("2_yhmfs")
 
-[node name="Start" type="Button" parent="."]
+[node name="Menu1" type="Sprite2D" parent="."]
+position = Vector2(350, 485)
+scale = Vector2(0.655932, 0.655932)
+texture = ExtResource("3_lncsr")
+
+[node name="Start" type="TextureButton" parent="."]
 layout_mode = 0
-offset_left = 238.0
-offset_top = 334.0
-offset_right = 450.0
-offset_bottom = 392.0
-text = "start
-"
+offset_left = 48.0
+offset_top = 310.0
+offset_right = 650.0
+offset_bottom = 522.0
+scale = Vector2(0.640395, 0.640395)
+pivot_offset = Vector2(304.5, 98.3768)
+texture_normal = ExtResource("4_7kohn")
+texture_pressed = ExtResource("5_7kohn")
+texture_hover = ExtResource("5_5wcji")
+
+[node name="Leave" type="TextureButton" parent="."]
+layout_mode = 0
+offset_left = 157.0
+offset_top = 489.0
+offset_right = 759.0
+offset_bottom = 701.0
+scale = Vector2(0.64, 0.64)
+texture_normal = ExtResource("7_3jsvh")
+texture_pressed = ExtResource("8_ppqbn")
+texture_hover = ExtResource("9_wftrx")
+
+[node name="Parallax background" type="Parallax2D" parent="."]
+z_index = -67
+scroll_scale = Vector2(0.2, 0.2)
+scroll_offset = Vector2(99, 0)
+repeat_size = Vector2(0, 1131)
+autoscroll = Vector2(0, 50)
+repeat_times = 2
+follow_viewport = false
+script = ExtResource("10_wftrx")
+
+[node name="ColorRect" type="ColorRect" parent="Parallax background"]
+offset_left = -122.0
+offset_top = -1626.0
+offset_right = 811.0
+offset_bottom = 926.0
+scale = Vector2(0.800001, 1)
+color = Color(0, 0.159382, 0.36478, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="Coast" type="Sprite2D" parent="Parallax background"]
+position = Vector2(-122, -206)
+scale = Vector2(0.110543, 0.110841)
+texture = ExtResource("11_yncyr")
+centered = false
 
 [connection signal="pressed" from="Start" to="." method="_on_start_pressed"]
+[connection signal="pressed" from="Leave" to="." method="_on_leave_pressed"]

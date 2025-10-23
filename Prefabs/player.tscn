@@ -1,6 +1,6 @@
-[gd_scene load_steps=21 format=3 uid="uid://dt61mx5v8mxvg"]
+[gd_scene load_steps=23 format=3 uid="uid://dt61mx5v8mxvg"]
 
-[ext_resource type="Script" uid="uid://cec6sx2vfnagv" path="res://Scripts/player.gd" id="1_5wxv7"]
+[ext_resource type="Script" path="res://Scripts/player.gd" id="1_5wxv7"]
 [ext_resource type="Texture2D" uid="uid://garab3f8825e" path="res://skins/Spitfire(M)/Spitfire 1.svg" id="2_hck1p"]
 [ext_resource type="Texture2D" uid="uid://cp41w2nt4y012" path="res://skins/Spitfire(M)/Spitfire 2.svg" id="3_juxdh"]
 [ext_resource type="Texture2D" uid="uid://cwyl5okg3duxx" path="res://skins/Spitfire(M)/Spitfire 3.svg" id="4_4qbli"]
@@ -17,6 +17,8 @@
 [ext_resource type="Texture2D" uid="uid://dtkx5ubp1f1a8" path="res://skins/Spitfire(M)/spitfire left 3.svg" id="15_and0b"]
 [ext_resource type="Texture2D" uid="uid://catft3ij8wgjk" path="res://skins/Spitfire(M)/spitfire left 4.svg" id="16_405c5"]
 [ext_resource type="Texture2D" uid="uid://b2hk2n8ffauk0" path="res://skins/Spitfire(M)/spitfire left 5.svg" id="17_i3mxk"]
+[ext_resource type="AudioStream" uid="uid://baf8vdqrqslqk" path="res://shoot.mp3" id="18_wphcr"]
+[ext_resource type="AudioStream" uid="uid://cbuvlsvihg6tc" path="res://hitmarker_2.mp3" id="19_and0b"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_2xbkd"]
 animations = [{
@@ -166,6 +168,12 @@ polygon = PackedVector2Array(-2.08333, -145.833, -16.6666, -133.333, -29.1666, -
 process_mode = 1
 wait_time = 8.0
 autostart = true
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("18_wphcr")
+
+[node name="playerhit" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("19_and0b")
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="cooling" from="." to="." method="_on_cooling"]

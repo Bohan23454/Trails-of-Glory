@@ -11,8 +11,8 @@ config_version=5
 [application]
 
 config/name="Third_Game_Project_Gadot"
-run/main_scene="uid://bmailb8s2vlgr"
-config/features=PackedStringArray("4.4", "Forward Plus")
+run/main_scene="res://Prefabs/start_menu.tscn"
+config/features=PackedStringArray("4.3", "Forward Plus")
 config/icon="res://skins/icon.svg"
 
 [autoload]

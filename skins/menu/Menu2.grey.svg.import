@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bgrhdniof3kxs"
-path="res://.godot/imported/turret.svg-600d575640118af6bc7461e3f6840204.ctex"
+uid="uid://bxv4r4g63cmqp"
+path="res://.godot/imported/Menu2.grey.svg-60bce4ce96d20d451bdecc24dcdd6ddc.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://skins/He111/turret.svg"
-dest_files=["res://.godot/imported/turret.svg-600d575640118af6bc7461e3f6840204.ctex"]
+source_file="res://skins/menu/Menu2.grey.svg"
+dest_files=["res://.godot/imported/Menu2.grey.svg-60bce4ce96d20d451bdecc24dcdd6ddc.ctex"]
 
 [params]
 
